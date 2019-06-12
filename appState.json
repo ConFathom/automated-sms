@@ -22,7 +22,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "automated-sms/lambda.js",
-        "code": "let AWS = require('aws-sdk');\nconst sns = new AWS.SNS();\nexports.handler = function (event, context, callback) {\n\n\tlet receiver = event['receiver'];\n\tlet sender = event['sender'];\n\tlet message = event['message'];\n\n\tlet isPromotional = true;\n\n\tconsole.log(\"Sending message\", message, \"to receiver\", receiver);\n\n\tsns.publish({\n\t\tMessage: message,\n\t\tMessageAttributes: {\n\t\t\t'AWS.SNS.SMS.SMSType': {\n\t\t\t\tDataType: 'String',\n\t\t\t\tStringValue: 'Promotional'\n\t\t\t},\n\t\t\t'AWS.SNS.SMS.SenderID': {\n\t\t\t\tDataType: 'String',\n\t\t\t\tStringValue: sender\n\t\t\t},\n\t\t},\n\t\tPhoneNumber: receiver\n\t}).promise()\n\t\t.then(data => {\n\t\t\tconsole.log(\"Sent message to\", receiver);\n\t\t\tcallback(null, data);\n\t\t})\n\t\t.catch(err => {\n\t\t\tconsole.log(\"Sending failed\", err);\n\t\t\tcallback(err);\n\t\t});\n}",
+        "code": "let AWS = require('aws-sdk');\nconst sns = new AWS.SNS();\nexports.handler = function (event, context, callback) {\n\n\tlet receiver = event['receiver'];\n\tlet sender = event['sender'];\n\tlet message = event['message'];\n\n\tlet isPromotional = true;\n\n\tconsole.log(\"Sending message\", message, \"to receiver\", receiver);\n\n\tsns.publish({\n\t\t\n\t\tMessage: message,\n\t\tMessageAttributes: {\n\t\t\t'AWS.SNS.SMS.SMSType': {\n\t\t\t\tDataType: 'String',\n\t\t\t\tStringValue: 'Promotional'\n\t\t\t},\n\t\t\t'AWS.SNS.SMS.SenderID': {\n\t\t\t\tDataType: 'String',\n\t\t\t\tStringValue: sender\n\t\t\t},\n\t\t},\n\t\tPhoneNumber: receiver\n\t}).promise()\n\t\t.then(data => {\n\t\t\tconsole.log(\"Sent message to\", receiver);\n\t\t\tcallback(null, data);\n\t\t})\n\t\t.catch(err => {\n\t\t\tconsole.log(\"Sending failed\", err);\n\t\t\tcallback(err);\n\t\t});\n}",
         "triggers": [
           {
             "resourceName": "apigeuWest1SMSGATEWAYsendSMSpost",
@@ -108,7 +108,7 @@
     "projectRegion": "eu-west-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1560334230125
+    "lastSave": 1560335640757
   },
   "VCS_STATE": {
     "provider": "GitHub",
